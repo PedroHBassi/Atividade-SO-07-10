@@ -1,0 +1,79 @@
+ATIVIDADE PRÁTICA — SIMULADOR DE GERENCIAMENTO DE MEMÓRIA
+
+QUESTÕES PARA ANÁLISE
+
+1. Qual é a diferença entre um HIT e um PAGE FAULT?
+
+HIT ocorre quando a página que foi solicitada já está presente em um dos frames da memória. Nesse caso, não é necessário carregar a página novamente.
+
+PAGE FAULT ocorre quando a página solicitada não está presente na memória. Nesse caso, é necessário carregá-la para um frame, podendo ser necessário substituir outra página.
+
+
+2. Qual é a principal diferença entre FIFO e LRU?
+
+A principal diferença está no critério utilizado para escolher qual página será substituída.
+
+No FIFO, a página que está há mais tempo na memória é removida primeiro, independentemente de quando foi utilizada pela última vez.
+
+No LRU, é removida a página que está há mais tempo sem ser utilizada.
+
+
+3. Um page fault significa necessariamente que existe um erro no programa? Explique.
+
+Não. Um page fault não significa necessariamente que existe um erro no programa. Ele é um evento normal do gerenciamento de memória virtual.
+
+O page fault acontece quando o processo tenta acessar uma página que não está atualmente carregada na memória principal. O sistema operacional então precisa carregar essa página para a memória.
+
+
+4. Aumentar a quantidade de frames sempre reduz o número de page faults no FIFO? Utilize o experimento da Anomalia de Belady para justificar.
+
+Não. No algoritmo FIFO, aumentar a quantidade de frames pode, em determinadas situações, aumentar o número de page faults.
+
+Isso é conhecido como Anomalia de Belady. Ela ocorre porque o FIFO simplesmente remove a página que está há mais tempo na memória, sem considerar se essa página ainda é utilizada com frequência.
+
+Portanto, ter mais frames nem sempre significa ter menos page faults no FIFO.
+
+
+5. Em quais situações FIFO e LRU podem produzir resultados diferentes?
+
+FIFO e LRU podem produzir resultados diferentes quando uma página que entrou há bastante tempo na memória ainda é utilizada com frequência.
+
+O FIFO pode remover essa página apenas porque ela foi a primeira a entrar. Já o LRU tende a mantê-la, pois ela foi utilizada recentemente.
+
+Por isso, dependendo da sequência de acessos, o LRU pode apresentar menos page faults que o FIFO.
+
+
+6. Por que o algoritmo Ótimo normalmente apresenta um bom resultado?
+
+O algoritmo Ótimo apresenta um bom resultado porque considera os acessos futuros às páginas.
+
+Quando precisa substituir uma página, ele escolhe aquela que demorará mais tempo para ser utilizada novamente ou que não será mais utilizada.
+
+Dessa forma, consegue minimizar a quantidade de page faults para uma determinada sequência de acessos.
+
+
+7. Por que um sistema operacional real não consegue utilizar perfeitamente o algoritmo Ótimo?
+
+Porque o algoritmo Ótimo precisa conhecer antecipadamente toda a sequência futura de acessos às páginas.
+
+Um sistema operacional real não consegue saber exatamente quais páginas os programas irão acessar no futuro.
+
+Por isso, sistemas operacionais utilizam algoritmos práticos, como LRU e outros métodos que tentam aproximar o comportamento do algoritmo Ótimo.
+
+
+8. Execute pelo menos três sequências diferentes e registre qual algoritmo apresentou menos page faults em cada uma.
+
+Para realizar os testes, foram utilizadas três sequências diferentes com 3 frames:
+
+Sequência 1:
+1 2 3 4 1 2 5 1 2 3 4 5
+
+Sequência 2:
+1 2 3 1 2 4 1 2 5 1 2 3 4 5
+
+Sequência 3:
+1 2 3 4 5 1 2 3 4 5 1 2 3
+
+Os resultados devem ser obtidos executando o simulador, comparando a quantidade de page faults dos algoritmos FIFO, LRU e Ótimo em cada sequência.
+
+O algoritmo que apresentar a menor quantidade de page faults em cada sequência deve ser registrado como o melhor resultado daquele teste.
